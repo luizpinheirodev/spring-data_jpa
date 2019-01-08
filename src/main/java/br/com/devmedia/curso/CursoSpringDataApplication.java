@@ -64,8 +64,137 @@ public class CursoSpringDataApplication implements CommandLineRunner {
 		//testByAndOr();
 		//testByBetween();
 		//testByLastNameAndBetween();
+		
+		//testByGreaterAndLess();
+		//testByGreaterAndLessEquals();
+		//testByFirstNameGreaterThan();
+		
+		//testByStartingAndEnd();
+		//testByContaing();
+		//testByAddressStartAndEnding();
+		
+		//testByInAndNotIn();
+		//testByOrderBy();
+		//testIgnoreCase();
+		
+		//testByNotNullAndNull();
+		
+		//testPhonesByNumber();
+		testFindByGreaterThanAndOrder();
 	}
 
+	private void testFindByGreaterThanAndOrder() {
+		List<Person> p1 = personRepository.findByAgeGreaterThanOrderByFirstNameAscLastNameAsc(22);
+		p1.forEach(System.out::println);
+		
+	}
+
+	private void testPhonesByNumber() {
+		List<Person> p1 = personRepository.findByPhonesNumberStartingWith("3222");
+		p1.forEach(System.out::println);
+		
+	}
+
+	private void testByNotNullAndNull() {
+		List<Person> p1 = personRepository.findByDocumentIsNull();
+		p1.forEach(System.out::println);
+		
+		System.out.println("-------------------------------");
+		
+		List<Person> p2 = personRepository.findByDocumentIsNotNull();
+		p2.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testIgnoreCase() {
+		
+		List<Person> p1 = personRepository.findByFirstNameIgnoreCase("BRUnA");
+		p1.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByOrderBy() {
+		
+		List<Address> a1 = addressRepository.findByCityOrderByTypeDesc("Rio de Janeiro");
+		a1.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByInAndNotIn() {
+		List<Person> p1 = personRepository.findByAgeIn(24, 28, 36, 45);
+		p1.forEach(System.out::println);
+		
+		System.out.println("-------------------------------");
+		
+		List<Person> p2 = personRepository.findByAgeNotIn(24, 28, 36, 45);
+		p2.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByAddressStartAndEnding() {
+		
+		List<Address> a1 = addressRepository.findByCityStartingWithOrStreetEndingWith("Rio", "102");
+		a1.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByContaing() {
+		
+		List<Address> a1 = addressRepository.findByStreetContaining("Ipanema");
+		a1.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByStartingAndEnd() {
+		List<Address> a1 = addressRepository.findByCityStartingWith("Rio");
+		a1.forEach(System.out::println);
+		
+		System.out.println("-------------------------------");
+
+		List<Address> a2 = addressRepository.findByStreetEndingWith("102");
+		a2.forEach(System.out::println);		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByFirstNameGreaterThan() {
+		
+		List<Person> p1 = personRepository.findByFirstNameGreaterThan("Jorge");
+		p1.forEach(System.out::println);		
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByGreaterAndLessEquals() {
+
+		List<Person> p1 = personRepository.findByAgeGreaterThanEqual(25);
+		p1.forEach(System.out::println);
+		
+		System.out.println("-------------------------------");
+
+		List<Person> p2 = personRepository.findByAgeLessThanEqual(25);
+		p2.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
+	private void testByGreaterAndLess() {
+		List<Person> p1 = personRepository.findByAgeGreaterThan(28);
+		p1.forEach(System.out::println);
+		
+		System.out.println("-------------------------------");
+
+		List<Person> p2 = personRepository.findByAgeLessThan(28);
+		p2.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
 	private void testByLastNameAndBetween() {
 		
 		List<Person> p1 = personRepository.findByLastNameAndAgeBetween("Pereira", 25, 45);
@@ -73,6 +202,7 @@ public class CursoSpringDataApplication implements CommandLineRunner {
 		
 	}
 
+	@SuppressWarnings("unused")
 	private void testByBetween() {
 		List<Person> p1 = personRepository.findByAgeBetween(24, 29);
 		p1.forEach(System.out::println);		
