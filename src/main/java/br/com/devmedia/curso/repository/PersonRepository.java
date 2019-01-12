@@ -3,10 +3,30 @@ package br.com.devmedia.curso.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import br.com.devmedia.curso.entity.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
+	
+	@Query("select p from Person p where p.firstName in :names order by p.age asc")
+	List<Person> findByFirstNames(@Param("names")String... firstName);
+
+	@Query("select p from Person p where p.age >= :min and p.age <= :max")
+	List<Person> findByAgeBetween(@Param("min")Integer start, @Param("max")Integer end);
+	
+	@Query("select p from Person p where p.document.cpf like %?1")
+	List<Person> findByDocumentCPFEndsWith(String value);
+	
+	@Query("select p from Person p where p.firstName like ?2 and p.age=?1")
+	List<Person> findByFirstNameAndAge(Integer age, String firstName);
+
+	@Query("select p from Person p where p.firstName like ?1 or p.age=?2")
+	List<Person> findByFirstNameOrAge(String firstName, Integer age);
+	
+	@Query("select p from Person p where p.firstName like ?1")
+	List<Person> findByFirstName(String firstName);
 	
 	// busca por age e ordena por firstName e lastName
 	List<Person> findByAgeGreaterThanOrderByFirstNameAscLastNameAsc(Integer age);

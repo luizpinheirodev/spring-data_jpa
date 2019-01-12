@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name="docs")
 @Table(name = "DOCUMENTS")
 public class Document implements Serializable {
 

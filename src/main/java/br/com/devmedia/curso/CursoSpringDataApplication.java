@@ -80,21 +80,91 @@ public class CursoSpringDataApplication implements CommandLineRunner {
 		//testByNotNullAndNull();
 		
 		//testPhonesByNumber();
-		testFindByGreaterThanAndOrder();
+		//testFindByGreaterThanAndOrder();
+		
+		//findFirstName();
+		//findFirstNameOrAge();
+		//findFirstNameAndAge();
+		//findByCPFEndsWith();
+		//findPersonByAges();
+		//findPersonByNames();
+		//findDocumentByCPFStart();
+		
+		//findAddressPorCidade();
+		findAddressesPorEndereco();
 	}
 
+	private void findAddressesPorEndereco() {
+		Address addresses = addressRepository.buscaPorEndereco("Rio de Janeiro", "Av. Copacabana, 102");
+		System.out.println(addresses.toString());
+		
+		Address addresses2 = addressRepository.buscaPorCidadeRua("Rio de Janeiro", "Av. Copacabana, 102");
+		System.out.println(addresses2.toString());
+	}
+
+	private void findAddressPorCidade() {
+		List<Address> addresses = addressRepository.buscaPorCidade("Porto Alegre");
+		addresses.forEach(System.out::println);
+	}
+
+	@SuppressWarnings("unused")
+	private void findDocumentByCPFStart() {
+		List<Document> documents = documentRepository.findByCPFStartWith("445");
+		documents.forEach(System.out::println);
+	}
+
+	@SuppressWarnings("unused")
+	private void findPersonByNames() {
+		List<Person> p1 = personRepository.findByFirstNames("Aline", "Bruna", "Gilson", "Ana Maria");
+		p1.forEach(System.out::println);
+	}
+
+	@SuppressWarnings("unused")
+	private void findPersonByAges() {
+		List<Person> p1 = personRepository.findByAgeBetween(28, 36);
+		p1.forEach(System.out::println);	
+	}
+
+	@SuppressWarnings("unused")
+	private void findByCPFEndsWith() {
+		List<Person> p1 = personRepository.findByDocumentCPFEndsWith("98");
+		p1.forEach(System.out::println);	
+	}
+
+	@SuppressWarnings("unused")
+	private void findFirstNameAndAge() {
+		List<Person> p1 = personRepository.findByFirstNameAndAge(29, "Fabiana");
+		p1.forEach(System.out::println);		
+	}
+
+	@SuppressWarnings("unused")
+	private void findFirstNameOrAge() {
+		List<Person> p1 = personRepository.findByFirstNameOrAge("Aline", 29);
+		p1.forEach(System.out::println);
+	}
+
+	@SuppressWarnings("unused")
+	private void findFirstName() {
+		List<Person> p1 = personRepository.findByFirstName("Aline");
+		p1.forEach(System.out::println);
+		
+	}
+
+	@SuppressWarnings("unused")
 	private void testFindByGreaterThanAndOrder() {
 		List<Person> p1 = personRepository.findByAgeGreaterThanOrderByFirstNameAscLastNameAsc(22);
 		p1.forEach(System.out::println);
 		
 	}
 
+	@SuppressWarnings("unused")
 	private void testPhonesByNumber() {
 		List<Person> p1 = personRepository.findByPhonesNumberStartingWith("3222");
 		p1.forEach(System.out::println);
 		
 	}
 
+	@SuppressWarnings("unused")
 	private void testByNotNullAndNull() {
 		List<Person> p1 = personRepository.findByDocumentIsNull();
 		p1.forEach(System.out::println);
